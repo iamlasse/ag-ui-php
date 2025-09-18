@@ -121,4 +121,21 @@ abstract class BaseMessage
     {
         return $this->id;
     }
+
+    /**
+     * Create a BaseMessage from an array
+     *
+     * @param array{ id: string, role: string, content?: string|null, name?: string|null } $data
+     * @return static
+     * @throws ValidationException
+     */
+    public static function fromArray(array $data): static
+    {
+        return new static(
+            $data['id'],
+            $data['role'],
+            $data['content'] ?? null,
+            $data['name'] ?? null
+        );
+    }
 }
