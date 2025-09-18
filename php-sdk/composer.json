@@ -1,21 +1,70 @@
 {
     "name": "ag-ui/php-sdk",
     "description": "PHP SDK for AG-UI - Event-based protocol for agent-user interactions",
-    "type": "library",
+    "type": "project",
     "license": "MIT",
     "minimum-stability": "stable",
     "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "path",
+            "url": "packages/core",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "packages/proto",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "packages/client",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "packages/encoder",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "packages/cli",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "integrations/laravel",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "integrations/symfony",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
     "require": {
         "php": ">=8.1",
-        "psr/http-client": "^1.0",
-        "psr/http-factory": "^1.0",
-        "psr/http-message": "^2.0",
-        "guzzlehttp/guzzle": "^7.0",
-        "monolog/monolog": "^3.0",
-        "symfony/console": "^7.0",
-        "symfony/yaml": "^7.0",
-        "symfony/serializer": "^7.0",
-        "symfony/property-access": "^7.0"
+        "ag-ui/core": "*",
+        "ag-ui/proto": "*",
+        "ag-ui/client": "*",
+        "ag-ui/encoder": "*",
+        "ag-ui/cli": "*",
+        "ag-ui/laravel-integration": "*",
+        "ag-ui/symfony-integration": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^10.0",
@@ -23,33 +72,54 @@
         "phpstan/phpstan": "^1.0",
         "psalm/phar": "^5.0"
     },
-    "autoload": {
-        "psr-4": {
-            "AGUI\\Core\\": "packages/core/src/",
-            "AGUI\\Client\\": "packages/client/src/",
-            "AGUI\\Proto\\": "packages/proto/src/",
-            "AGUI\\Encoder\\": "packages/encoder/src/",
-            "AGUI\\CLI\\": "packages/cli/src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "AGUI\\Tests\\Core\\": "packages/core/tests/",
-            "AGUI\\Tests\\Client\\": "packages/client/tests/",
-            "AGUI\\Tests\\Proto\\": "packages/proto/tests/",
-            "AGUI\\Tests\\Encoder\\": "packages/encoder/tests/",
-            "AGUI\\Tests\\CLI\\": "packages/cli/tests/"
-        }
-    },
     "scripts": {
         "test": "phpunit",
         "test-coverage": "phpunit --coverage-html coverage",
-        "lint": "phpcs --standard=PSR12 src/",
-        "lint-fix": "phpcbf --standard=PSR12 src/",
-        "analyze": "phpstan analyse src/",
+        "lint": "phpcs --standard=PSR12 packages/*/src/",
+        "lint-fix": "phpcbf --standard=PSR12 packages/*/src/",
+        "analyze": "phpstan analyse packages/*/src/",
         "psalm": "psalm",
-        "build": "composer install --no-dev --optimize-autoloader",
-        "clean": "rm -rf vendor/ coverage/"
+        "build": [
+            "@composer install --no-dev --optimize-autoloader",
+            "composer build-all"
+        ],
+        "build-all": [
+            "cd packages/core && composer install --no-dev --optimize-autoloader",
+            "cd packages/proto && composer install --no-dev --optimize-autoloader",
+            "cd packages/client && composer install --no-dev --optimize-autoloader",
+            "cd packages/encoder && composer install --no-dev --optimize-autoloader",
+            "cd packages/cli && composer install --no-dev --optimize-autoloader",
+            "cd integrations/laravel && composer install --no-dev --optimize-autoloader",
+            "cd integrations/symfony && composer install --no-dev --optimize-autoloader"
+        ],
+        "test-all": [
+            "cd packages/core && composer test",
+            "cd packages/proto && composer test",
+            "cd packages/client && composer test",
+            "cd packages/encoder && composer test",
+            "cd packages/cli && composer test",
+            "cd integrations/laravel && composer test",
+            "cd integrations/symfony && composer test"
+        ],
+        "clean": "rm -rf vendor/ coverage/ packages/*/vendor/ integrations/*/vendor/",
+        "post-install-cmd": [
+            "composer install-working-dir packages/core",
+            "composer install-working-dir packages/proto",
+            "composer install-working-dir packages/client",
+            "composer install-working-dir packages/encoder",
+            "composer install-working-dir packages/cli",
+            "composer install-working-dir integrations/laravel",
+            "composer install-working-dir integrations/symfony"
+        ],
+        "post-update-cmd": [
+            "composer install-working-dir packages/core",
+            "composer install-working-dir packages/proto",
+            "composer install-working-dir packages/client",
+            "composer install-working-dir packages/encoder",
+            "composer install-working-dir packages/cli",
+            "composer install-working-dir integrations/laravel",
+            "composer install-working-dir integrations/symfony"
+        ]
     },
     "config": {
         "sort-packages": true,
