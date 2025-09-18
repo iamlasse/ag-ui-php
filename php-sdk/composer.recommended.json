@@ -1,0 +1,150 @@
+{
+    "name": "ag-ui/php-sdk",
+    "description": "PHP SDK for AG-UI - Event-based protocol for agent-user interactions",
+    "type": "project",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.1",
+        "react/promise": "^3.2.0",
+        "respect/validation": "^2.3.0",
+        "ramsey/uuid": "^4.7.0",
+        "swaggest/json-diff": "^3.12.0",
+        "google/protobuf": "^3.25.0",
+        "psr/http-message": "^2.0",
+        "psr/http-factory": "^1.0",
+        "psr/http-client": "^1.0",
+        "symfony/serializer": "^7.0",
+        "symfony/property-access": "^7.0",
+        "symfony/console": "^7.0",
+        "monolog/monolog": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0",
+        "squizlabs/php_codesniffer": "^3.0",
+        "phpstan/phpstan": "^1.0",
+        "psalm/phar": "^5.0",
+        "react/http": "^1.9.0",
+        "ramsey/uuid-doctrine": "^2.0.0",
+        "symfony/var-dumper": "^7.0",
+        "phpspec/prophecy": "^1.18",
+        "mockery/mockery": "^1.6"
+    },
+    "suggest": {
+        "ext-protobuf": "For better performance with Protocol Buffers",
+        "ext-uuid": "For better performance with UUID generation",
+        "react/http": "For HTTP streaming capabilities",
+        "symfony/event-dispatcher": "For advanced event handling",
+        "league/event": "Alternative event dispatcher implementation"
+    },
+    "autoload": {
+        "psr-4": {
+            "AGUI\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AGUI\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-html coverage",
+        "test-unit": "phpunit --testsuite=Unit",
+        "test-integration": "phpunit --testsuite=Integration",
+        "lint": "phpcs --standard=PSR12 src/",
+        "lint-fix": "phpcbf --standard=PSR12 src/",
+        "analyze": "phpstan analyse src/",
+        "analyze-baseline": "phpstan analyse src/ --generate-baseline",
+        "psalm": "psalm",
+        "psalm-baseline": "psalm --set-baseline=psalm-baseline.xml",
+        "format": "php-cs-fixer fix src/ --rules=@PSR12",
+        "format-dry": "php-cs-fixer fix src/ --rules=@PSR12 --dry-run",
+        "build": [
+            "@composer install --no-dev --optimize-autoloader",
+            "@composer dump-autoload --optimize"
+        ],
+        "build-prod": [
+            "@composer install --no-dev --optimize-autoloader --no-interaction",
+            "@composer dump-autoload --optimize --no-dev",
+            "opcache_compile_scripts.php"
+        ],
+        "clean": "rm -rf vendor/ coverage/ .phpunit.cache/ phpstan.neon psalm-baseline.xml",
+        "install-hooks": "chmod +x .git/hooks/*",
+        "setup": [
+            "@composer install",
+            "@install-hooks"
+        ],
+        "validate": [
+            "@lint",
+            "@analyze",
+            "@psalm",
+            "@test"
+        ],
+        "dev": [
+            "php -S localhost:8000 -t public/"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "php-http/discovery": true
+        },
+        "platform": {
+            "php": "8.1.0"
+        },
+        "optimize-autoloader": true,
+        "classmap-authoritative": true
+    },
+    "scripts-descriptions": {
+        "test": "Run all tests",
+        "test-coverage": "Run tests with coverage report",
+        "test-unit": "Run unit tests only",
+        "test-integration": "Run integration tests only",
+        "lint": "Check code style",
+        "lint-fix": "Fix code style issues",
+        "analyze": "Run static analysis",
+        "psalm": "Run Psalm static analysis",
+        "format": "Format code using PHP CS Fixer",
+        "build": "Build for production",
+        "validate": "Run all validation checks",
+        "dev": "Start development server"
+    },
+    "authors": [
+        {
+            "name": "AG-UI Team",
+            "email": "team@ag-ui.org"
+        }
+    ],
+    "keywords": [
+        "ag-ui",
+        "agent-ui",
+        "event-driven",
+        "protocol",
+        "ai",
+        "agent",
+        "reactive",
+        "typescript-equivalent",
+        "php-sdk"
+    ],
+    "support": {
+        "issues": "https://github.com/ag-ui/ag-ui/issues",
+        "source": "https://github.com/ag-ui/ag-ui",
+        "docs": "https://docs.ag-ui.org"
+    },
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/ag-ui"
+        },
+        {
+            "type": "tidelift",
+            "url": "https://tidelift.com/funding/github/packagist/ag-ui/php-sdk"
+        }
+    ]
+}
