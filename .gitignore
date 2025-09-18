@@ -1,3 +1,27 @@
 **/.claude/settings.local.json
 .vscode/
 .idea/
+
+# PHP SDK vendor directories
+php-sdk/**/vendor/
+php-sdk/**/composer.lock
+
+# Test coverage and build artifacts
+php-sdk/**/coverage/
+php-sdk/**/.phpunit.result.cache
+php-sdk/**/build/
+php-sdk/**/dist/
+php-sdk/**/node_modules/
+
+# Development files
+php-sdk/**/.env
+php-sdk/**/.env.local
+php-sdk/**/.env.*.local
+
+# IDE files
+php-sdk/**/.vscode/
+php-sdk/**/.idea/
+
+# OS files
+php-sdk/**/.DS_Store
+php-sdk/**/Thumbs.db
