@@ -1,0 +1,33 @@
+{
+    "name": "ag-ui/laravel",
+    "description": "AG-UI integration for Laravel framework",
+    "type": "laravel-package",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.1",
+        "laravel/framework": "^10.0|^11.0",
+        "ag-ui/core": "^1.0",
+        "ag-ui/client": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0",
+        "orchestra/testbench": "^8.0|^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "AGUI\\Laravel\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AGUI\\Tests\\Laravel\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "AGUI\\Laravel\\AGUIServiceProvider"
+            ]
+        }
+    }
+}
