@@ -1,0 +1,43 @@
+{
+    "name": "ag-ui/langgraph",
+    "description": "LangGraph PHP integration for AG-UI protocol",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "AGUI\\Integrations\\LangGraph\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AGUI\\Integrations\\LangGraph\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">=8.1",
+        "ag-ui/core": "^1.0",
+        "ag-ui/client": "^1.0",
+        "guzzlehttp/guzzle": "^7.0",
+        "ramsey/uuid": "^4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0",
+        "phpstan/phpstan": "^1.0"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-html coverage",
+        "phpstan": "phpstan analyse src tests",
+        "phpstan-baseline": "phpstan analyse src tests --generate-baseline",
+        "lint": "find src tests -name '*.php' -exec php -l {} \\;",
+        "format": "php-cs-fixer fix src tests"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
