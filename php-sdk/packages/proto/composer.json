@@ -16,7 +16,9 @@
     },
     "autoload": {
         "psr-4": {
-            "AGUI\\Proto\\": "src/"
+            "AGUI\\Proto\\": "src/",
+            "Ag_ui\\": "src/Generated/Ag_ui/",
+            "GPBMetadata\\": "src/Generated/GPBMetadata/"
         }
     },
     "autoload-dev": {
@@ -32,7 +34,9 @@
         "analyze": "phpstan analyse src/",
         "psalm": "psalm",
         "build": "composer install --no-dev --optimize-autoloader",
-        "clean": "rm -rf vendor/ coverage/"
+        "clean": "rm -rf vendor/ coverage/",
+        "generate": "bash scripts/generate-proto.sh",
+        "proto:generate": "bash scripts/generate-proto.sh"
     },
     "config": {
         "sort-packages": true
